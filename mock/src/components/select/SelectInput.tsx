@@ -14,7 +14,21 @@ interface SelectInputProps {
   setHistory: Dispatch<SetStateAction<Array<histEntry>>>;
 }
 
-export function SelectInput() {
+export function SelectInput(props: SelectInputProps) {
+  // SOLUTION FUNCTION:
+  /**
+   * Function that is called when a user click the submit button to display a new output
+   *
+   * @param file the file selected by the user
+   */
+
+  function handleSubmit(text: string) {
+    let newEntry: histEntry = {
+      data: text,
+    };
+    props.setHistory([...props.history, newEntry]);
+  }
+
   return (
     <div className="dropdown-container">
       <select
@@ -24,12 +38,29 @@ export function SelectInput() {
         aria-label="dropdown"
       >
         <option>Nim Telson</option>
+        <option>Goberto Ronzales</option>
+        <option>Zegan Mheng</option>
         {/* TODO 1: add more options to the dropdown here */}
       </select>
       {/* TODO 2: add a button here to display the current dropdown option as text
             on the main output area
             (Hint: use the setHistory useState set function) 
         */}
+      <button
+        onClick={() => {
+          const selectElement = document.getElementById(
+            "dropdown"
+          ) as HTMLSelectElement | null;
+          const selectText =
+            selectElement?.options[selectElement.selectedIndex]?.text;
+          if (selectText != null) {
+            handleSubmit(selectText);
+          }
+        }}
+        aria-label="submit"
+      >
+        Submit
+      </button>
     </div>
   );
 }

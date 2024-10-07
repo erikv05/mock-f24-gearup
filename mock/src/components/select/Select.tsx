@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "../../styles/main.css";
 import { SelectInput } from "./SelectInput";
+import { SelectHistory } from "./SelectHistory";
 
 /**
  * A histEntry interface to structure each single output stored in the main output area
@@ -33,17 +34,20 @@ export interface Tab {
  *
  */
 export function Select() {
-  // TODO 2: set-up a React useState variable here to update the main display area once you click the submit button,
+  // TODO 2 (Solution): set-up a React useState variable here to update the main display area once you click the submit button,
   //    then, pass this variable in as a prop to SelectHistory at line 32 and uncomment it
+  const [history, setHistory] = useState<histEntry[]>([]);
 
   return (
     <div className="min-h-[95vh] relative">
       <div className="w-full" style={{ width: "100%" }}>
         <div className="select-container" aria-lable="Select container">
-          {/* <pre><SelectHistory /></pre> */}
+          <pre>
+            <SelectHistory history={history} />
+          </pre>
         </div>
         <hr></hr>
-        <SelectInput />
+        <SelectInput history={history} setHistory={setHistory} />
       </div>
     </div>
   );
