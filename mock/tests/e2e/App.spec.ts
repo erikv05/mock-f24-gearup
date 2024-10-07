@@ -39,11 +39,16 @@ test("on page load, i dont see the input box until login", async ({ page }) => {
 });
 
 test("on page load, i see a submit button", async ({ page }) => {
-  // TODO 5 WITH TA: Fill this in!
+  await page.goto("http://localhost:8000/");
+  await page.getByLabel("Login").click();
+  await expect(page.getByLabel("Submit")).toBeVisible();
 });
 
 test("after I click the submit button, i see the dropdown text in the output area", async ({
   page,
 }) => {
-  // TODO 5 WITH TA: Fill this in to test your button push functionality!
+  await page.goto("http://localhost:8000/");
+  await page.getByLabel("Login").click();
+  await page.getByLabel("Submit").click();
+  await expect(page.getByLabel("Select container")).toHaveText("Nim Telson");
 });

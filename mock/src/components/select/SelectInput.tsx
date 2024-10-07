@@ -14,22 +14,34 @@ interface SelectInputProps {
   setHistory: Dispatch<SetStateAction<Array<histEntry>>>;
 }
 
-export function SelectInput() {
+export function SelectInput(props: SelectInputProps) {
+  const [name, setName] = useState<string>("Nim Telson");
+
   return (
     <div className="dropdown-container">
       <select
+        value={name}
+        onChange={(e) => setName(e.target.value)}
         className="dropdown"
         name="dropdown"
         id="dropdown"
         aria-label="dropdown"
       >
-        <option>Nim Telson</option>
-        {/* TODO 1: add more options to the dropdown here */}
+        <option value="Nim Telson">Nim Telson</option>
+        <option value="Tim Nelson">Tim Nelson</option>
       </select>
-      {/* TODO 2: add a button here to display the current dropdown option as text
-            on the main output area
-            (Hint: use the setHistory useState set function) 
-        */}
+      <button
+        name="submit"
+        id="submit"
+        aria-label="Submit"
+        // I use state here instead of the DOM
+        onClick={() => {
+          props.setHistory([...props.history, { data: name }]);
+          setName("");
+        }}
+      >
+        Submit
+      </button>
     </div>
   );
 }
